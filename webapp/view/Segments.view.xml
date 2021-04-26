@@ -1,0 +1,65 @@
+<mvc:View xmlns:smartfield="sap.ui.comp.smartfield" xmlns:navpopover="sap.ui.comp.navpopover" xmlns:smarttable="sap.ui.comp.smarttable" height="100%" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.f" xmlns:uxap="sap.uxap" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="dev.vinibar.portal.settings.controller.Segments" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <uxap:ObjectPageLayout enableLazyLoading="true" flexEnabled="true" alwaysShowContentHeader="true" showFooter="{segmentsView>/editable}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageHeader objectTitle="Segmentos">
+                <uxap:breadcrumbs>
+                    <Breadcrumbs links="{common>/breadcrumbLinks}">
+                        <links>
+                            <Link text="{common>text}" press="onLinkPress" customData:key="{common>key}" />
+                        </links>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:actions>
+                    <Button text="Editar" press=".onEdit" visible="{=! ${segmentsView>/editable} }" type="Emphasized"/>
+                </uxap:actions>
+            </uxap:ObjectPageHeader>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap">
+                <SearchField id="idSearch" placeholder="Procurar" width="20em" search="onSearch" />
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+            <uxap:ObjectPageSection showTitle="false">
+                <uxap:ObjectPageSubSection>
+                    <ScrollContainer vertical="true" id="idScrollContainer">
+                        <smarttable:SmartTable id="idSegmentsTable" entitySet="Segments" header="Segmentos" enableAutoBinding="true" showRowCount="false" useExportToExcel="false" useTablePersonalisation="false" beforeRebindTable="onRebindSegmentsTable" initiallyVisibleFields="Id,Title,Description,ChangeDate,ChangeTime,Username">
+                            <Table fixedLayout="false" headerText="Segmentos" delete=" onDelete" mode="{= ${segmentsView>/editable} ? 'Delete' : 'None' }" sticky="ColumnHeaders,HeaderToolbar">
+                                <headerToolbar>
+                                    <OverflowToolbar visible="{segmentsView>/editable}">
+                                        <content>
+                                            <ToolbarSpacer />
+                                            <Button icon="sap-icon://add" text="Adicionar" press="onAdd" visible="{segmentsView>/editable}" />
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <items>
+                                    <ColumnListItem id="idSegmentsColumnListItem" visible="{= ${Title} !== ${segmentsView>/deletedTitle} }" vAlign="Top">
+                                        <cells>
+                                            <smartfield:SmartField value="{Id}" editable="{segmentsView>/editable}" width="auto" fieldGroupIds="segment" />
+                                            <smartfield:SmartField value="{Title}" editable="{segmentsView>/editable}" fieldGroupIds="segment" />
+                                            <smartfield:SmartField value="{Description}" editable="{segmentsView>/editable}" app:multiLineSettings="{cols: 60, rows: 4}" width="30em" fieldGroupIds="segment" />
+                                            <smartfield:SmartField value="{ChangeDate}" />
+                                            <smartfield:SmartField value="{ChangeTime}" />
+                                            <smartfield:SmartField value="{Username}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </smarttable:SmartTable>
+                    </ScrollContainer>
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <Toolbar>
+                <content>
+                    <Button icon="sap-icon://alert" text="{=${message>/}.length}" visible="{=${message>/}.length > 0}" type="Reject" press=".onShowMessages" />
+                    <ToolbarSpacer />
+                    <Button text="Cancelar" type="Transparent" press=".onCancel" />
+                    <Button text="Salvar" type="Emphasized" press=".onSave" />
+                </content>
+            </Toolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

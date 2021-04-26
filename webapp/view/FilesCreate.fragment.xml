@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="idFilesCreateDialog" title="Criar Arquivo" afterClose="onCloseCreateDialog">
+        <form:SimpleForm>
+            <Label text="Título" labelFor="idCreateTitle"/>
+            <Input id="idCreateTitle" value="{Title}"/>
+        </form:SimpleForm>
+        <buttons>
+            <Button text="Cancelar" press="onCloseCreateDialog" type="Transparent" />
+            <Button text="Salvar" press="onCreate" type="Emphasized"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <!-- coloquei as classes do header da sap.m.Page para fins estéticos -->
+    <HBox class="sapMBar sapMIBar sapMHeader-CTX sapUiResponsivePadding" alignItems="Center" visible="{= ${appView>/breadcrumbLinks}.length &gt; 1 }">
+        <Breadcrumbs links="{appView>/breadcrumbLinks}" id="breadcrumbs" class="sapUiLargeMarginBegin">
+            <links>
+                <Link text="{appView>text}" customData:key="{appView>key}" press="onLinkPress" />
+            </links>
+        </Breadcrumbs>
+    </HBox>
+</core:FragmentDefinition>

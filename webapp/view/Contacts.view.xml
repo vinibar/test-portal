@@ -1,0 +1,62 @@
+<mvc:View xmlns:smartfield="sap.ui.comp.smartfield" xmlns:navpopover="sap.ui.comp.navpopover" xmlns:smarttable="sap.ui.comp.smarttable" height="100%" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.f" xmlns:uxap="sap.uxap" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="dev.vinibar.portal.settings.controller.Contacts" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <uxap:ObjectPageLayout enableLazyLoading="true" flexEnabled="true" alwaysShowContentHeader="true" showFooter="{contactsView>/editable}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageHeader objectTitle="Contatos">
+                <uxap:actions>
+                    <Button text="Editar" press=".onEdit" visible="{=! ${contactsView>/editable} }" type="Emphasized" />
+                </uxap:actions>
+            </uxap:ObjectPageHeader>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap">
+                <SearchField id="idSearch" placeholder="Procurar" width="20em" search="onSearch" />
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+            <uxap:ObjectPageSection showTitle="false">
+                <uxap:ObjectPageSubSection>
+                    <smarttable:SmartTable id="idContactsTable" entitySet="Contacts" header="Contatos" enableAutoBinding="true" showRowCount="false" useExportToExcel="false" useTablePersonalisation="false" beforeRebindTable="onRebindContactsTable">
+                        <Table headerText="Contatos" fixedLayout="false" delete=" onDelete" mode="{= ${contactsView>/editable} ? 'Delete' : 'None' }">
+                            <headerToolbar>
+                                <OverflowToolbar visible="{contactsView>/editable}">
+                                    <content>
+                                        <ToolbarSpacer />
+                                        <Button icon="sap-icon://add" text="Adicionar" press="onAdd" visible="{contactsView>/editable}" />
+                                    </content>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <items>
+                                <ColumnListItem id="idContactsColumnListItem" visible="{= ${Phone} !== ${contactsView>/deletedPhone} }">
+                                    <cells>
+                                        <smartfield:SmartField value="{Name}" editable="{contactsView>/editable}" />
+                                        <smartfield:SmartField value="{Type}" editable="{contactsView>/editable}">
+                                            <smartfield:configuration>
+                                                <smartfield:Configuration controlType="dropDownList" displayBehaviour="descriptionOnly" />
+                                            </smartfield:configuration>
+                                        </smartfield:SmartField>
+                                        <smartfield:SmartField value="{Job}" editable="{contactsView>/editable}" />
+                                        <smartfield:SmartField value="{Email}" editable="{contactsView>/editable}" />
+                                        <smartfield:SmartField value="{Phone}" editable="{contactsView>/editable}" />
+                                        <smartfield:SmartField value="{ChangeDate}" />
+                                        <smartfield:SmartField value="{ChangeTime}" />
+                                        <smartfield:SmartField value="{Username}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </smarttable:SmartTable>
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <Toolbar>
+                <content>
+                    <Button icon="sap-icon://alert" text="{=${message>/}.length}" visible="{=${message>/}.length > 0}" type="Reject" press=".onShowMessages" />
+                    <ToolbarSpacer />
+                    <Button text="Cancelar" type="Transparent" press=".onCancel" />
+                    <Button text="Salvar" type="Emphasized" press=".onSave" />
+                </content>
+            </Toolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

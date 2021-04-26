@@ -1,0 +1,61 @@
+<mvc:View xmlns:smarttable="sap.ui.comp.smarttable" height="100%" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.f" xmlns:uxap="sap.uxap" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="dev.vinibar.portal.settings.controller.Files" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<f:FlexibleColumnLayout layout="{filesView>/layout}">
+		<f:beginColumnPages>
+	<uxap:ObjectPageLayout enableLazyLoading="true" flexEnabled="true" alwaysShowContentHeader="true">
+		<uxap:headerTitle>
+			<uxap:ObjectPageDynamicHeaderTitle>
+				<uxap:breadcrumbs>
+					<Breadcrumbs links="{common>/breadcrumbLinks}">
+						<links>
+							<Link text="{common>text}" press="onLinkPress" customData:key="{common>key}" />
+						</links>
+					</Breadcrumbs>
+				</uxap:breadcrumbs>
+				<uxap:heading>
+					<Title text="Parametrização de Arquivos"/>
+				</uxap:heading>
+				<uxap:actions>
+					<Button text="Criar" type="Emphasized" press=".onOpenCreateDialog" />
+				</uxap:actions>
+			</uxap:ObjectPageDynamicHeaderTitle>
+		</uxap:headerTitle>
+		<uxap:headerContent>
+			<FlexBox wrap="Wrap">
+				<SearchField placeholder="Procurar" width="20em" search="onSearch"/>
+			</FlexBox>
+		</uxap:headerContent>
+		<uxap:sections>
+			<uxap:ObjectPageSection>
+				<uxap:ObjectPageSubSection>
+					<Table id="idFilesTable" delete="onDelete" mode="Delete" itemPress=".showDetail" items="{/Files}">
+						<columns>
+							<Column>
+								<Text text="{/#File/Title/@sap:label}" />
+							</Column>
+							<Column>
+								<Text text="{/#File/ModifiedAt/@sap:label}" />
+							</Column>
+							<Column>
+								<Text text="{/#File/ModifiedBy/@sap:label}" />
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Navigation">
+								<cells>
+									<ObjectIdentifier title="{Title}" text="{Id}" />
+									<ObjectAttribute text="{path: 'ModifiedAt', type: 'sap.ui.model.odata.type.DateTime', constraints: { displayFormat: 'short' } }" />
+									<ObjectAttribute text="{ModifiedBy}" />
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</uxap:ObjectPageSubSection>
+			</uxap:ObjectPageSection>
+		</uxap:sections>
+	</uxap:ObjectPageLayout>
+		</f:beginColumnPages>
+		<f:midColumnPages>
+			<mvc:XMLView id="FilesDetailView" viewName="dev.vinibar.portal.settings.view.FilesDetail" />
+		</f:midColumnPages>
+</f:FlexibleColumnLayout>
+</mvc:View>

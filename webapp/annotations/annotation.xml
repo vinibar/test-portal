@@ -1,0 +1,155 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/zbw_portal_srv/$metadata">
+        <edmx:Include Namespace="ZBW_PORTAL_SRV" />
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="dev.vinibar.portal">
+
+
+            <Annotations Target="ZBW_PORTAL_SRV.FileUser/UserId">
+                <Annotation Term="Common.Text" Path="toUser/Name" />
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Users" />
+                        <PropertyValue Property="Label" String="Usuários" />
+                        <PropertyValue Property="SearchSupported" Bool="true" />
+                        <PropertyValue Property="FetchValues" Int="1" />
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="UserId" />
+                                    <PropertyValue Property="ValueListProperty" String="Id" />
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Name" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="ZBW_PORTAL_SRV.User/Id">
+                <Annotation Term="Common.Text" Path="Name" />
+            </Annotations>
+
+            <Annotations Target="ZBW_PORTAL_SRV.FileUser/Level">
+                <Annotation Term="Common.Text" Path="toFile/Title" />
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true" />
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Levels" />
+                        <PropertyValue Property="Label" String="Níveis" />
+                        <PropertyValue Property="FetchValues" Int="1" />
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Level" />
+                                    <PropertyValue Property="ValueListProperty" String="Id" />
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Title" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="ZBW_PORTAL_SRV.Level">
+                <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly" />
+            </Annotations>
+
+            <Annotations Target="ZBW_PORTAL_SRV.Level/Id">
+                <Annotation Term="Common.Text" Path="Title" />
+            </Annotations>
+
+            <Annotations Target="ZBW_PORTAL_SRV.Contact">
+                <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly" />
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Name" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Type" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Job" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Email" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Phone" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChangeDate" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChangeTime" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Username" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZBW_PORTAL_SRV.Contact/Email">
+                <Annotation Term="Communication.IsEmailAddress" Bool="true" />
+            </Annotations>
+            <Annotations Target="ZBW_PORTAL_SRV.Contact/Phone">
+                <Annotation Term="Communication.IsPhoneNumber" Bool="true" />
+            </Annotations>
+
+            <Annotations Target="ZBW_PORTAL_SRV.ContactType">
+                <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly" />
+            </Annotations>
+
+            <Annotations Target="ZBW_PORTAL_SRV.ContactType/Id">
+                <Annotation Term="Common.Text" Path="Title" />
+            </Annotations>
+
+            <Annotations Target="ZBW_PORTAL_SRV.Contact/Type">
+                <Annotation Term="Common.Text" Path="ContactType/Title" />
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="ContactTypes" />
+                        <PropertyValue Property="Label" String="Tipos de Contato" />
+                        <PropertyValue Property="FetchValues" Int="1" />
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Type" />
+                                    <PropertyValue Property="ValueListProperty" String="Id" />
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Title" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="ZBW_PORTAL_SRV.Segment/Description">
+                 <Annotation Term="UI.MultiLineText" Bool="true"/>
+            </Annotations>
+
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

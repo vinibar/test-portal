@@ -1,0 +1,172 @@
+{
+  "_version": "1.14.0",
+
+  "sap.app": {
+    "id": "dev.vinibar.portal.settings",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/zbw_portal_srv",
+        "type": "OData",
+        "settings": {
+          "annotations": ["annotation"],
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    }
+  },
+
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://task",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "dev.vinibar.portal.settings.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    },
+
+    "dependencies": {
+      "minUI5Version": "1.60.16",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.ui.comp": {},
+        "sap.m": {
+          "lazy": true          
+        },
+        "sap.f": {},
+        "sap.uxap": {},
+        "sap.tnt": {}
+      }
+    },
+
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "dev.vinibar.portal.settings.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": true
+        }
+      }
+    },
+
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "dev.vinibar.portal.settings.view",
+        "controlId": "app",
+        "transition":"fade",
+        "controlAggregation": "pages",
+        "bypassed": {
+          "target": ["notFound"]
+        },
+        "async": true
+      },
+
+      "routes": [
+        {
+          "pattern": "",
+          "name": "main",
+          "target": ["home"]
+        },
+        {
+          "pattern": "files/:objectId:",
+          "name": "files",
+          "target": ["files"]
+        },
+        {
+          "pattern": "parameters/contacts",
+          "name": "contacts",
+          "target": ["contacts"]
+        },
+        {
+          "pattern": "parameters/segments",
+          "name": "segments",
+          "target": ["segments"]
+        }
+      ],
+
+      "targets": {
+        "home": {
+          "viewName": "Home",
+          "viewId": "home",
+          "viewLevel": 1,
+          "title": "{i18n>homeViewTitle}"
+        },
+        "files": {
+          "viewName": "Files",
+          "viewId": "files",
+          "viewLevel": 1,
+          "title": "{i18n>filesViewTitle}"
+        },
+        "contacts": {
+          "viewName": "Contacts",
+          "viewId": "contacts",
+          "viewLevel": 1,
+          "title": "{i18n>contactsViewTitle}"
+        },
+        "segments": {
+          "viewName": "Segments",
+          "viewId": "segments",
+          "viewLevel": 1,
+          "title": "{i18n>segmentsViewTitle}"
+        },
+        "notFound": {
+          "viewName": "NotFound",
+          "viewId": "notFound"
+        }
+      }
+    }
+  }
+}

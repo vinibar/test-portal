@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <Popover id="idConfirmationPopover" class="sapUiResponsivePadding--header sapUiResponsivePadding--footer" placement="VerticalPreferredTop" initialFocus="idConfirmationButton" beforeClose="onCloseDeleteConfirmation" modal="true">
+        <footer>
+            <Toolbar>
+                <Button id="idConfirmationButton" text="Confirmar" press=".onConfirm" app:commit="true" width="100%" />
+            </Toolbar>
+        </footer>
+    </Popover>
+</core:FragmentDefinition>

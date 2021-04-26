@@ -1,0 +1,98 @@
+<mvc:View xmlns:smartform="sap.ui.comp.smartform" xmlns:smartfield="sap.ui.comp.smartfield" xmlns:tnt="sap.tnt" xmlns:form="sap.ui.layout.form" xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:uxap="sap.uxap" height="100%" controllerName="dev.vinibar.portal.settings.controller.FilesDetail" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml">
+    <uxap:ObjectPageLayout busyIndicatorDelay="{filesDetailView>/delay}" busy="{filesDetailView>/busy}" flexEnabled="true" enableLazyLoading="true" showFooter="{filesDetailView>/editable}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:heading>
+                    <Title text="Arquivo {Title}" wrapping="true" />
+                </uxap:heading>
+                <uxap:navigationActions>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press=".onClose" tooltip="Fechar" id="idCloseButton" />
+                </uxap:navigationActions>
+                <uxap:actions>
+                    <Button text="Editar" press=".onEdit" visible="{=! ${filesDetailView>/editable} }" />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <smartform:SmartForm editable="false">
+                <smartform:Group>
+                    <smartform:GroupElement>
+                        <smartfield:SmartField value="{ModifiedAt}" />
+                    </smartform:GroupElement>
+                    <smartform:GroupElement>
+                        <smartfield:SmartField value="{ModifiedBy}" />
+                    </smartform:GroupElement>
+                </smartform:Group>
+            </smartform:SmartForm>
+
+        </uxap:headerContent>
+        <uxap:sections>
+            <uxap:ObjectPageSection>
+                <uxap:ObjectPageSubSection title="Geral">
+                    <uxap:blocks>
+                        <smartform:SmartForm editable="{filesDetailView>/editable}">
+                            <smartform:Group>
+                                <smartform:GroupElement>
+                                    <smartfield:SmartField value="{Structure}" contextEditable="true" />
+                                </smartform:GroupElement>
+                            </smartform:Group>
+                        </smartform:SmartForm>
+                    </uxap:blocks>
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection>
+                <uxap:ObjectPageSubSection title="Usuários">
+                    <Table id="idFilesUsersTable" mode="{= ${filesDetailView>/editable} ? 'Delete' : 'None' }" items="{path: 'toUsers', parameters: { expand: 'toLevel' } }" delete="onDeleteUser">
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <content>
+                                    <ToolbarSpacer />
+                                    <Button type="Transparent" icon="sap-icon://add" text="Adicionar" press="onAddUser" visible="{filesDetailView>/editable}" />
+                                </content>
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column>
+                                <Text text="{/#FileUser/UserId/@sap:label}" />
+                            </Column>
+                            <Column>
+                                <Text text="{/#FileUser/Level/@sap:label}" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem id="idFilesUsersColumnListItem" visible="{= ${Level} !== ${filesDetailView>/DELETED_LEVEL} }">
+                                <cells>
+                                    <VBox>
+                                        <Text text="{UserId}" visible="{=! ${filesDetailView>/editable} }" />
+                                        <smartfield:SmartField value="{UserId}" enabled="true" visible="{filesDetailView>/editable}" fieldGroupIds="fileUser">
+                                            <smartfield:configuration>
+                                                <smartfield:Configuration displayBehaviour="idAndDescription" preventInitialDataFetchInValueHelpDialog="false" />
+                                            </smartfield:configuration>
+                                        </smartfield:SmartField>
+                                    </VBox>
+                                    <VBox>
+                                        <smartfield:SmartField value="{Level}" enabled="true" fieldGroupIds="fileUser" editable="{filesDetailView>/editable}">
+                                            <smartfield:configuration>
+                                                <smartfield:Configuration displayBehaviour="descriptionOnly" preventInitialDataFetchInValueHelpDialog="false" />
+                                            </smartfield:configuration>
+                                        </smartfield:SmartField>
+                                    </VBox>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar visible="{filesDetailView>/editable}">
+                <content>
+                    <Button icon="sap-icon://alert" text="{=${message>/}.length}" visible="{=${message>/}.length > 0}" type="Reject" press=".onShowMessages" />
+                    <ToolbarSpacer />
+                    <Button text="Cancelar" type="Transparent" press=".onCancel" />
+                    <Button text="Salvar" type="Emphasized" press=".onSave" />
+                </content>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

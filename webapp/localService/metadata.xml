@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZBW_PORTAL_SRV" xml:lang="pt" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="User" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id" />
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <NavigationProperty Name="toFiles" Relationship="ZBW_PORTAL_SRV.UserToFileUser" FromRole="FromRole_UserToFileUser" ToRole="ToRole_UserToFileUser" />
+            </EntityType>
+            <EntityType Name="File" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id" />
+                </Key>
+                <Property Name="Id" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Title" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Título do Arquivo" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="ModifiedAt" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="Modificado em" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="ModifiedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Modificado por" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <NavigationProperty Name="toUsers" Relationship="ZBW_PORTAL_SRV.FileToFileUser" FromRole="FromRole_FileToFileUser" ToRole="ToRole_FileToFileUser" />
+            </EntityType>
+            <EntityType Name="FileUser" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FileId" />
+                    <PropertyRef Name="UserId" />
+                </Key>
+                <Property Name="FileId" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="FILE_ID" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="UserId" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Nome do usuário" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Level" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Nível" sap:sortable="false" sap:filterable="false" />
+                <NavigationProperty Name="toFile" Relationship="ZBW_PORTAL_SRV.FileToFileUser" FromRole="ToRole_FileToFileUser" ToRole="FromRole_FileToFileUser" />
+                <NavigationProperty Name="toUser" Relationship="ZBW_PORTAL_SRV.UserToFileUser" FromRole="ToRole_UserToFileUser" ToRole="FromRole_UserToFileUser" />
+                <NavigationProperty Name="toLevel" Relationship="ZBW_PORTAL_SRV.LevelToFileUser" FromRole="ToRole_LevelToFileUser" ToRole="FromRole_LevelToFileUser" />
+            </EntityType>
+            <EntityType Name="Level" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id" />
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Nível" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Title" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Título" sap:creatable="false" sap:updatable="false" sap:filterable="false" />
+            </EntityType>
+            <EntityType Name="Contact" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Email" />
+                </Key>
+                <Property Name="Email" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="E-mail" sap:updatable="false" sap:filterable="false" sap:semantics="email" />
+                <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Tipo" sap:filterable="false" />
+                <Property Name="Job" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Cargo" sap:filterable="false" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Nome" sap:filterable="false" />
+                <Property Name="Phone" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Telefone" sap:filterable="false" sap:semantics="tel" />
+                <Property Name="Username" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Modificado por" sap:creatable="false" sap:updatable="false" sap:filterable="false" />
+                <Property Name="ChangeDate" Type="Edm.DateTime" Precision="7" sap:display-format="Date" sap:unicode="false" sap:label="Data Modif" sap:creatable="false" sap:updatable="false" sap:filterable="false" />
+                <Property Name="ChangeTime" Type="Edm.Time" Precision="0" sap:display-format="Time" sap:unicode="false" sap:label="Hora Modif" sap:creatable="false" sap:updatable="false" sap:filterable="false" />
+                <NavigationProperty Name="ContactType" Relationship="ZBW_PORTAL_SRV.ContactToContactType" FromRole="ToRole_ContactToContactType" ToRole="FromRole_ContactToContactType" />
+            </EntityType>
+            <EntityType Name="ContactType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id" />
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Código" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Title" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Descrição" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+            </EntityType>
+            <EntityType Name="Segment" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id" />
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Código do Segmento" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Title" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Nome do Segmento" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="250" sap:unicode="false" sap:label="Descrição Segmento" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Username" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Nome do usuário" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="ChangeDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Data" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="ChangeTime" Type="Edm.Time" Nullable="false" Precision="0" sap:unicode="false" sap:label="Hora" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+            </EntityType>
+            <Association Name="LevelToFileUser" sap:content-version="1">
+                <End Type="ZBW_PORTAL_SRV.Level" Multiplicity="1" Role="FromRole_LevelToFileUser" />
+                <End Type="ZBW_PORTAL_SRV.FileUser" Multiplicity="1" Role="ToRole_LevelToFileUser" />
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_LevelToFileUser">
+                        <PropertyRef Name="Id" />
+                    </Principal>
+                    <Dependent Role="ToRole_LevelToFileUser">
+                        <PropertyRef Name="Level" />
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="UserToFileUser" sap:content-version="1">
+                <End Type="ZBW_PORTAL_SRV.User" Multiplicity="1" Role="FromRole_UserToFileUser" />
+                <End Type="ZBW_PORTAL_SRV.FileUser" Multiplicity="*" Role="ToRole_UserToFileUser" />
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_UserToFileUser">
+                        <PropertyRef Name="Id" />
+                    </Principal>
+                    <Dependent Role="ToRole_UserToFileUser">
+                        <PropertyRef Name="UserId" />
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ContactToContactType" sap:content-version="1">
+                <End Type="ZBW_PORTAL_SRV.ContactType" Multiplicity="1" Role="FromRole_ContactToContactType" />
+                <End Type="ZBW_PORTAL_SRV.Contact" Multiplicity="1" Role="ToRole_ContactToContactType" />
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ContactToContactType">
+                        <PropertyRef Name="Id" />
+                    </Principal>
+                    <Dependent Role="ToRole_ContactToContactType">
+                        <PropertyRef Name="Type" />
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="FileToFileUser" sap:content-version="1">
+                <End Type="ZBW_PORTAL_SRV.File" Multiplicity="1" Role="FromRole_FileToFileUser" />
+                <End Type="ZBW_PORTAL_SRV.FileUser" Multiplicity="*" Role="ToRole_FileToFileUser" />
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_FileToFileUser">
+                        <PropertyRef Name="Id" />
+                    </Principal>
+                    <Dependent Role="ToRole_FileToFileUser">
+                        <PropertyRef Name="FileId" />
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZBW_PORTAL_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Users" EntityType="ZBW_PORTAL_SRV.User" sap:pageable="false" sap:addressable="false" sap:content-version="1" />
+                <EntitySet Name="Files" EntityType="ZBW_PORTAL_SRV.File" sap:pageable="false" sap:addressable="false" sap:content-version="1" />
+                <EntitySet Name="FilesUsers" EntityType="ZBW_PORTAL_SRV.FileUser" sap:pageable="false" sap:addressable="false" sap:content-version="1" />
+                <EntitySet Name="Levels" EntityType="ZBW_PORTAL_SRV.Level" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1" />
+                <EntitySet Name="Contacts" EntityType="ZBW_PORTAL_SRV.Contact" sap:searchable="true" sap:pageable="false" sap:addressable="false" sap:content-version="1" />
+                <EntitySet Name="ContactTypes" EntityType="ZBW_PORTAL_SRV.ContactType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1" />
+                <EntitySet Name="Segments" EntityType="ZBW_PORTAL_SRV.Segment" sap:searchable="true" sap:pageable="false" sap:addressable="false" sap:content-version="1" />
+                <AssociationSet Name="UsersToFilesUsers" Association="ZBW_PORTAL_SRV.UserToFileUser" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Users" Role="FromRole_UserToFileUser" />
+                    <End EntitySet="FilesUsers" Role="ToRole_UserToFileUser" />
+                </AssociationSet>
+                <AssociationSet Name="ContactsToContactTypes" Association="ZBW_PORTAL_SRV.ContactToContactType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ContactTypes" Role="FromRole_ContactToContactType" />
+                    <End EntitySet="Contacts" Role="ToRole_ContactToContactType" />
+                </AssociationSet>
+                <AssociationSet Name="LevelsToFilesUsers" Association="ZBW_PORTAL_SRV.LevelToFileUser" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Levels" Role="FromRole_LevelToFileUser" />
+                    <End EntitySet="FilesUsers" Role="ToRole_LevelToFileUser" />
+                </AssociationSet>
+                <AssociationSet Name="FilesToFilesUsers" Association="ZBW_PORTAL_SRV.FileToFileUser" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Files" Role="FromRole_FileToFileUser" />
+                    <End EntitySet="FilesUsers" Role="ToRole_FileToFileUser" />
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://cbmphordsup01.cbmp.corp:8012/sap/opu/odata/sap/zbw_portal_srv/$metadata" xmlns:atom="http://www.w3.org/2005/Atom" />
+            <atom:link rel="latest-version" href="http://cbmphordsup01.cbmp.corp:8012/sap/opu/odata/sap/zbw_portal_srv/$metadata" xmlns:atom="http://www.w3.org/2005/Atom" />
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

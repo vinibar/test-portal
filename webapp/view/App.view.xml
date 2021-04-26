@@ -1,0 +1,37 @@
+<mvc:View xmlns:layout="sap.ui.layout" height="100%" controllerName="dev.vinibar.portal.settings.controller.App" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<tnt:ToolPage id="toolPage" sideExpanded="{appView>/sideBarExpanded}">
+		<tnt:header>
+			<tnt:ToolHeader style="Clear">
+				<Button icon="sap-icon://menu2" press="onMenu" type="Transparent"/>
+				<Button text="PORTAL - Configurações" press="onLinkPress" customData:key="main" type="Transparent"/>
+				<ToolbarSpacer />
+			</tnt:ToolHeader>
+		</tnt:header>
+		<tnt:sideContent>
+			<tnt:SideNavigation itemSelect=".onItemSelect" selectedItem="{appView>/selectedItem}" selectedKey="main">
+				<tnt:NavigationList>
+					<tnt:NavigationListItem text="Home" icon="sap-icon://home" enabled="true" expanded="false" key="main"/>
+					<tnt:NavigationListItem text="Arquivos" icon="sap-icon://course-program" enabled="true" expanded="false" key="files"/>
+					<tnt:NavigationListItem text="Parâmetrizações" icon="sap-icon://role" enabled="true" expanded="{appView>/paramsExpanded}" key="params">
+						<tnt:items>
+							<tnt:NavigationListItem text="Contatos" icon="sap-icon://contact" enabled="true" expanded="false" key="contacts" />
+							<tnt:NavigationListItem text="Segmentos" icon="sap-icon://SAP-icons-TNT/connector" enabled="true" expanded="false" key="segments" />
+						</tnt:items>
+					</tnt:NavigationListItem>
+				</tnt:NavigationList>
+			</tnt:SideNavigation>
+		</tnt:sideContent>
+		<tnt:mainContents>
+			<App busy="{appView>/busy}" busyIndicatorDelay="{appView>/delay}">
+				<pages>
+					<Page showFooter="false" showHeader="false" showNavButton="false">
+						<VBox>
+							<core:Fragment fragmentName="dev.vinibar.portal.settings.view.Breadcrumbs" type="XML"/>
+							<App id="app"/>
+						</VBox>
+					</Page>
+				</pages>
+			</App>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+</mvc:View>
